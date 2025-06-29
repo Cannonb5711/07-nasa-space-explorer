@@ -7,71 +7,140 @@
 
 /* Base page styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f1f1f1;
-  padding: 20px;
+  font-family: Helvetica, Garamond, Arial, sans-serif;
+  background-color: #061f4a; /* updated to new background color */
+  padding: 40px 0; /* more vertical space */
+  color: #212121; /* main text color */
 }
 
 /* Centered container */
 .container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
+  background: rgba(255,255,255,0.04); /* subtle overlay for depth */
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(6,31,74,0.18);
+  padding: 32px 24px 32px 24px;
 }
 
 /* Header */
 .site-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  justify-content: flex-start;
+  padding: 24px 32px 24px 32px;
+  margin-bottom: 32px;
+  background-color: #aeb0b5;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(33,33,33,0.08);
+  gap: 10px; /* reduced gap to bring elements closer */
+  animation: fadeInHeader 0.7s cubic-bezier(.4,0,.2,1) both;
+}
+
+/* Add a vertical black line between the logo and the title */
+.site-header .logo {
+  width: 90px;
+  min-width: 70px;
+  margin-right: 0;
+  border-radius: 50%;
+  background: none;
+  padding: 0;
+  /* Remove box-shadow for no outline */
+  box-shadow: none;
+}
+
+.site-header .logo + .header-divider {
+  width: 2px;
+  height: 60px;
+  background: #212121;
+  margin: 0 10px; /* reduced margin to bring logo and text closer to the line */
+  border-radius: 2px;
+  align-self: center;
+}
+
+@media (max-width: 600px) {
+  .site-header .logo + .header-divider {
+    height: 40px;
+    margin: 0 6px;
+  }
 }
 
 h1 {
-  font-family: Verdana, sans-serif;
+  font-family: Garamond, Helvetica, Arial, sans-serif; /* match card text font */
   font-weight: bold;
-  color: #212121;
+  color: #212121; /* match card text color */
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  margin: 0;
 }
 
 /* Logo */
 .logo {
-  width: 140px;
-  margin-right: 15px;
+  width: 90px;
+  min-width: 70px;
+  margin-right: 10px;
+  border-radius: 50%;
+  /* Remove background and padding for no white circle */
+  background: none;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(33,33,33,0.08);
 }
 
 /* Date‐picker & button row */
 .filters {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
   justify-content: center;
-  margin-bottom: 20px;
-  padding: 0 20px;
+  align-items: stretch;
+  margin-bottom: 32px;
+  padding: 0 10px;
 }
 
-/* Inputs and buttons */
-input[type="date"],
-button {
-  font-family: Arial, sans-serif;
+input[type="date"] {
+  font-family: Helvetica, Garamond, Arial, sans-serif;
   font-weight: normal;
-  color: #666;
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
+  color: #212121;
+  padding: 12px 18px;
+  border: 1.5px solid #0b3d91;
+  border-radius: 8px;
+  font-size: 17px;
   line-height: 1.4;
   width: 100%;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(11,61,145,0.04);
+  transition: border 0.2s;
+}
+input[type="date"]:focus {
+  outline: none;
+  border: 2px solid #07285c;
 }
 
-/* Button specific */
 button {
-  background-color: #d3d3d3;
-  color: black;
+  font-family: Helvetica, Garamond, Arial, sans-serif;
+  background-color: #0b3d91;
+  color: #fff;
   cursor: pointer;
+  border: none;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  border-radius: 25px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(11,61,145,0.10);
+  letter-spacing: 1px;
 }
-button:hover {
-  background-color: #bfbfbf;
+button:hover, button:focus {
+  background-color: #07285c;
+  box-shadow: 0 4px 16px rgba(11,61,145,0.18);
+  transform: translateY(-2px) scale(1.03);
+  animation: buttonPop 0.18s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes buttonPop {
+  0% { transform: scale(1);}
+  60% { transform: scale(1.07);}
+  100% { transform: scale(1.03);}
 }
 
 /* Stack horizontally on wider screens */
@@ -79,8 +148,9 @@ button:hover {
   .filters {
     flex-direction: row;
     padding: 0;
+    gap: 18px;
+    align-items: flex-end;
   }
-  
   input[type="date"],
   button {
     width: auto;
@@ -91,54 +161,196 @@ button:hover {
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
+  gap: 28px;
+  padding: 24px 0;
   justify-content: center;
 }
 
 /* Gallery items */
 .gallery-item {
-  flex: 1 1 100%;  /* full width by default */
-  min-width: 280px;
-  max-width: 500px;
-  background: white;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex: 1 1 340px;
+  min-width: 320px;
+  max-width: 370px;
+  background: transparent; /* hide white background by default */
+  padding: 18px 16px 16px 16px;
+  border-radius: 14px;
+  box-shadow: none; /* remove shadow by default */
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  border: 2px solid transparent; /* hide border by default */
+  transition: box-shadow 0.2s, transform 0.1s, background 0.2s, border 0.2s;
+  margin-bottom: 8px;
+  cursor: pointer;
+  outline: none;
+  animation: fadeInCard 0.6s cubic-bezier(.4,0,.2,1) both;
+}
+/* Show blue border and stronger shadow only when focused (clicked) */
+.gallery-item:focus {
+  background: #fff;
+  border: 2px solid #0b3d91;
+  box-shadow: 0 0 0 3px #0b3d91, 0 8px 32px rgba(11,61,145,0.18);
+  z-index: 1;
+}
+/* Style for the card title box */
+.gallery-item p {
+  margin-top: 8px;
+  padding: 8px 16px;
+  font-size: 15px;
+  color: #212121;
+  font-family: Garamond, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  word-break: break-word;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(33,33,33,0.08);
+  display: inline-block;
+  transition: box-shadow 0.2s, background 0.2s, padding 0.2s;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* When card is not focused, keep the title box compact */
+.gallery-item:not(:focus) p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  padding: 8px 16px;
+  box-shadow: 0 1px 2px rgba(33,33,33,0.04);
+}
+/* When card is focused, expand the title box */
+.gallery-item:focus p {
+  white-space: normal;
+  max-width: 100%;
+  padding: 12px 24px;
+  box-shadow: 0 4px 16px rgba(33,33,33,0.12);
 }
 
-/* Three columns on wider screens */
-@media (min-width: 1000px) {
-  .gallery-item {
-    flex: 0 1 31%;
+/* Fade in animation for gallery items */
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Fade in animation for card details */
+@keyframes fadeInDetails {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in animation for header */
+@keyframes fadeInHeader {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animate header on load */
+.site-header {
+  animation: fadeInHeader 0.7s cubic-bezier(.4,0,.2,1) both;
+}
+
+/* Animate gallery items on appearance */
+.gallery-item {
+  animation: fadeInCard 0.6s cubic-bezier(.4,0,.2,1) both;
+}
+
+/* Animate card details when shown */
+.gallery-item:focus .card-details {
+  animation: fadeInDetails 0.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* Animate placeholder fade in */
+.placeholder {
+  flex: 1 1 100%;
+  text-align: center;
+  padding: 48px 24px;
+  color: #212121;
+  background: #f4f8fd;
+  border-radius: 12px;
+  border: 1.5px dashed #0b3d91;
+  box-shadow: 0 2px 8px rgba(11,61,145,0.06);
+  margin-top: 16px;
+  animation: fadeInCard 0.7s cubic-bezier(.4,0,.2,1) both;
+}
+
+.placeholder-icon {
+  font-size: 54px;
+  margin-bottom: 20px;
+  color: #0b3d91;
+}
+.placeholder-icon {
+  font-size: 54px;
+  margin-bottom: 20px;
+  color: #0b3d91;
+}
+
+/* Responsive video container for YouTube embeds */
+.video-container {
+  width: 100%;
+  height: 210px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e6e6e6;
+  margin-bottom: 10px;
+}
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+/* Style for video link cards */
+.video-link {
+  text-decoration: none;
+  color: #212121;
+  border-radius: 8px;
+  display: block;
+  transition: box-shadow 0.2s;
+}
+.video-link:hover {
+  box-shadow: 0 4px 16px rgba(33,33,33,0.12);
+  background: #f4f8fd;
+}
+
+/* Animate video container when focused */
+.gallery-item:focus .video-container,
+.gallery-item:focus .video-link {
+  animation: fadeInDetails 0.35s cubic-bezier(.4,0,.2,1);
 }
 
 .gallery-item img {
   width: 100%;
-  height: 200px;
+  height: 210px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 8px;
+  border: 2px solid #fff;      /* white border around images */
+  background: #fff;            /* white background behind images */
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(33,33,33,0.08); /* subtle shadow for card effect */
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1); /* smooth scaling */
 }
-
-.gallery-item p {
-  margin-top: 10px;
-  padding: 5px;
-  font-size: 14px;
-}
-
-/* Placeholder content */
-.placeholder {
-  flex: 1 1 100%;
-  text-align: center;
-  padding: 40px;
-  color: #666;
-}
-
-.placeholder-icon {
-  font-size: 48px;
-  margin-bottom: 20px;
+/* Add smooth scaling effect on hover */
+.gallery-item:hover img,
+.gallery-item:focus img {
+  transform: scale(1.04);
 }
